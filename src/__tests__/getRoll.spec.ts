@@ -7,4 +7,9 @@ describe('getRoll function', () => {
     const n = getRoll()
     expect(n).toBeGreaterThanOrEqual(1)
   })
+
+  it('return a number 6 or less', () => {
+    const n = getRoll()
+    expect(n).toBeLessThanOrEqual(6)
+  })
 })
