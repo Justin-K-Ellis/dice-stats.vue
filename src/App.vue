@@ -4,6 +4,7 @@ import rollDice from './utils/rollDice'
 import type { RollStats } from '../types'
 
 const diceStats = ref<RollStats>({})
+const starterNum = ref(0)
 
 function handleRoll(): void {
   const roll = rollDice()
@@ -13,6 +14,12 @@ function handleRoll(): void {
     diceStats.value[roll] += '#'
   }
 }
+
+function handleStarterInput(): void {
+  for (let i = 0; i < starterNum.value; i++) {
+    handleRoll()
+  }
+}
 </script>
 
 <template>
@@ -20,6 +27,10 @@ function handleRoll(): void {
     <h1>Dice Stats</h1>
     <div class="controls">
       <button @click="handleRoll">Roll</button>
+      <form @submit.prevent="handleStarterInput">
+        <input type="number" v-model="starterNum" id="starter-input" placeholder="Start input" />
+        <button type="submit">Enter</button>
+      </form>
     </div>
     <article>
       <p v-for="(rolls, num) in diceStats" :key="num">{{ num }}: {{ rolls }}</p>
@@ -45,11 +56,21 @@ main {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 h1 {
   text-align: center;
+}
+
+form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+form button {
+  margin-bottom: 0;
 }
 
 .controls {
@@ -57,5 +78,7 @@ h1 {
   flex-direction: row;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 </style>
