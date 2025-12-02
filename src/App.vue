@@ -69,8 +69,9 @@ form {
   justify-content: center;
 }
 
-form button {
-  margin-bottom: 0;
+button,
+input {
+  --pico-spacing: 0;
 }
 
 .controls {
