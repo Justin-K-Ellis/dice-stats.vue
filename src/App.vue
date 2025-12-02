@@ -4,7 +4,7 @@ import rollDice from './utils/rollDice'
 import type { RollStats } from '../types'
 
 const diceStats = ref<RollStats>({})
-const starterNum = ref(0)
+const starterNum = ref<number | null>(null)
 
 function handleRoll(): void {
   const roll = rollDice()
@@ -16,8 +16,16 @@ function handleRoll(): void {
 }
 
 function handleStarterInput(): void {
-  for (let i = 0; i < starterNum.value; i++) {
-    handleRoll()
+  if (starterNum.value) {
+    if (starterNum.value > 300) starterNum.value = 300
+
+    diceStats.value = {}
+    for (let i = 0; i < starterNum.value; i++) {
+      handleRoll()
+    }
+    starterNum.value = null
+  } else {
+    return
   }
 }
 </script>
