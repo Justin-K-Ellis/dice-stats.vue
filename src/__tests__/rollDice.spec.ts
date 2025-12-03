@@ -7,8 +7,13 @@ describe('rollDice function', () => {
     expect(n).toBeGreaterThanOrEqual(2)
   })
 
-  it('should return 12 or less', () => {
+  it('should return 12 or less when there are two dice', () => {
     const n = rollDice()
     expect(n).toBeLessThanOrEqual(12)
+  })
+
+  it('should be able to hand more than two dice', () => {
+    const n = rollDice(3)
+    expect(n).toBeDefined()
   })
 })
