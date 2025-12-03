@@ -5,6 +5,7 @@ import type { RollStats } from '../types'
 
 const diceStats = ref<RollStats>({})
 const starterNum = ref<number | null>(null)
+const totalRolls = ref(0)
 
 function handleRoll(): void {
   const roll = rollDice()
@@ -13,10 +14,12 @@ function handleRoll(): void {
   } else {
     diceStats.value[roll] += '#'
   }
+  totalRolls.value++
 }
 
 function handleStarterInput(): void {
   if (starterNum.value) {
+    totalRolls.value = 0
     if (starterNum.value > 300) starterNum.value = 300
 
     diceStats.value = {}
@@ -28,6 +31,12 @@ function handleStarterInput(): void {
     return
   }
 }
+
+function handleReset(): void {
+  diceStats.value = {}
+  starterNum.value = null
+  totalRolls.value = 0
+}
 </script>
 
 <template>
@@ -36,11 +45,13 @@ function handleStarterInput(): void {
     <div class="controls">
       <button @click="handleRoll">Roll</button>
       <form @submit.prevent="handleStarterInput">
-        <input type="number" v-model="starterNum" id="starter-input" placeholder="Start input" />
+        <input type="number" v-model="starterNum" id="starter-input" placeholder="Starter input" />
         <button type="submit">Enter</button>
       </form>
+      <button type="reset" @click="handleReset">Reset</button>
     </div>
     <article>
+      <h3 v-if="totalRolls">{{ totalRolls }} {{ totalRolls === 1 ? 'roll' : 'rolls' }}</h3>
       <p v-for="(rolls, num) in diceStats" :key="num">{{ num }}: {{ rolls }}</p>
     </article>
   </main>
@@ -89,5 +100,19 @@ input {
   justify-content: center;
   align-items: center;
   margin: 1rem;
+}
+
+@media (max-width: 400px) {
+  main {
+    width: 95%;
+  }
+
+  form {
+    gap: 0.25rem;
+  }
+
+  .controls {
+    gap: 0.25rem;
+  }
 }
 </style>
