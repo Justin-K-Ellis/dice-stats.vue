@@ -102,7 +102,7 @@ input {
   margin: 1rem;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   main {
     width: 95%;
   }
