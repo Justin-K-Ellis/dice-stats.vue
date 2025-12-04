@@ -16,4 +16,9 @@ describe('rollDice function', () => {
     const n = rollDice(3)
     expect(n).toBeDefined()
   })
+
+  it('should accept a die parameter', () => {
+    const n = rollDice(2, 4)
+    expect(n).toBeDefined()
+  })
 })
