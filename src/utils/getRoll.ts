@@ -1,3 +1,6 @@
-export default function getRoll(): number {
-  return Math.ceil(Math.random() * 6)
+import type { Die } from '../../types'
+
+export default function getRoll(die?: Die): number {
+  const _die = die === undefined ? 6 : die
+  return Math.ceil(Math.random() * _die)
 }
